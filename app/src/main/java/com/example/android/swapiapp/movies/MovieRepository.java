@@ -1,9 +1,18 @@
 package com.example.android.swapiapp.movies;
 
+import com.example.android.swapiapp.utilities.NetworkUtils;
+
+import java.io.IOException;
+
 public class MovieRepository implements IRepository {
     @Override
     public String getAllFromApi() {
-        return null;
+        try {
+            return NetworkUtils.getResponseFromHttpUrl(NetworkUtils.getAllMoviesUrl());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

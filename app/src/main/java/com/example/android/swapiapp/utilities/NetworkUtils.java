@@ -11,11 +11,22 @@ public class NetworkUtils {
     private final static String SWAPI_BASE_URL = "https://swapi.co/api/";
     private final static String SWAPI_CATEGORIE_MOVIES_PARAM = "films";
 
-    public static String getAllMoviesUrl(){
-        return SWAPI_BASE_URL + SWAPI_CATEGORIE_MOVIES_PARAM;
+    public static URL getAllMoviesUrl(){
+        try {
+            return new URL(SWAPI_BASE_URL + SWAPI_CATEGORIE_MOVIES_PARAM);
+        }
+        catch (Exception e){
+            return null;
+        }
+
     }
-    public static String getMovieByIdUrl(int id){
-        return SWAPI_BASE_URL + SWAPI_CATEGORIE_MOVIES_PARAM + '/' + id;
+    public static URL getMovieByIdUrl(int id){
+        try {
+            return new URL(SWAPI_BASE_URL + SWAPI_CATEGORIE_MOVIES_PARAM + '/' + id);
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
 
