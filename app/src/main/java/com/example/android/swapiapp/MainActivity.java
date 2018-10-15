@@ -28,7 +28,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         movieManager = new MovieManager(movieRepository);
 
         //async call to populate movieManager
-        getSupportLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
+        getMoviesFromLoader();
+    }
+
+    private void getMoviesFromLoader(){
+        LoaderManager loaderManager = getSupportLoaderManager();
+        Loader<String> githubSearchLoader = loaderManager.getLoader(MOVIE_LOADER_ID);
+        if (githubSearchLoader == null) {
+            loaderManager.initLoader(MOVIE_LOADER_ID, null, this);
+        } else {
+            loaderManager.restartLoader(MOVIE_LOADER_ID, null, this);
+        }
     }
 
     @Override
@@ -63,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
-
+        System.out.println(s);
     }
 
     @Override

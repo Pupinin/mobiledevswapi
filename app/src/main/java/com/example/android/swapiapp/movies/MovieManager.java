@@ -26,8 +26,8 @@ public class MovieManager {
     public String GetAllMoviesApi(){
         String result = moviesRepository.getAllFromApi();
         //parsing string to ArrayList function
-        ParseStringJsonToArrayListObject(result);
-        return null;
+        //ParseStringJsonToArrayListObject(result);
+        return result;
     }
 
 
