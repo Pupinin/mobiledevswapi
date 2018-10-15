@@ -9,15 +9,54 @@ public class Movie {
     private String director;
     private String producer;
     private String release_date;
-    ArrayList< Object > characters = new ArrayList < Object > ();
-    ArrayList < Object > planets = new ArrayList < Object > ();
-    ArrayList < Object > starships = new ArrayList < Object > ();
-    ArrayList < Object > vehicles = new ArrayList < Object > ();
-    ArrayList < Object > species = new ArrayList < Object > ();
+    ArrayList< String > characters = new ArrayList < String > ();
+    ArrayList < String > planets = new ArrayList < String > ();
+    ArrayList < String > starships = new ArrayList < String > ();
+    ArrayList < String > vehicles = new ArrayList < String > ();
+    ArrayList < String > species = new ArrayList < String > ();
     private String created;
     private String edited;
     private String url;
 
+    public ArrayList<String> getCharacters() {
+        return characters;
+    }
+
+    public void setCharacters(ArrayList<String> characters) {
+        this.characters = characters;
+    }
+
+    public ArrayList<String> getPlanets() {
+        return planets;
+    }
+
+    public void setPlanets(ArrayList<String> planets) {
+        this.planets = planets;
+    }
+
+    public ArrayList<String> getStarships() {
+        return starships;
+    }
+
+    public void setStarships(ArrayList<String> starships) {
+        this.starships = starships;
+    }
+
+    public ArrayList<String> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(ArrayList<String> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    public ArrayList<String> getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(ArrayList<String> species) {
+        this.species = species;
+    }
 
     // Getter Methods
     public String getTitle() {

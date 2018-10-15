@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
         movieRepository = new MovieRepository();
-        movieManager = new MovieManager(movieRepository);
+        movieManager = new MovieManager();
 
         //async call to populate movieManager
         getMoviesFromLoader();
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return true;
     }
 
-
     //Async call to populate movieManager
     @NonNull
     @Override
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
-        System.out.println(s);
+        movieManager.setMovies(s);
     }
 
     @Override
