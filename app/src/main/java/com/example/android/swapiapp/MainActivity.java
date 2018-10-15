@@ -12,6 +12,7 @@ import android.view.Menu;
 import com.example.android.swapiapp.movies.IRepository;
 import com.example.android.swapiapp.movies.MovieManager;
 import com.example.android.swapiapp.movies.MovieRepository;
+import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>  {
 
@@ -53,22 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return new AsyncTaskLoader<String>(this){
-
-
-            //Moet nog controle komen voor null enz....
-
-            @Nullable
-            @Override
-            public String loadInBackground() {
-                return movieManager.GetAllMoviesApi();
-            }
-
-            @Override
-            protected void onStartLoading() {
-                forceLoad();
-            }
-        };
+        return new MoviesApiAsyncTaskLoader(this);
     }
 
     @Override
