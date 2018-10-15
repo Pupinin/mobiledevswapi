@@ -15,4 +15,9 @@ public class MoviesApiAsyncTaskLoader extends AsyncTaskLoader<String> {
     public String loadInBackground() {
         return new MovieRepository().getAllFromApi();
     }
+
+    @Override
+    protected void onStartLoading() {
+        forceLoad();
+    }
 }

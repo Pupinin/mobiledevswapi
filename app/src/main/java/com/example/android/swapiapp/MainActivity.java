@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     //Async call to populate movieManager
-    //TODO 2 verplaats na een class die AsyncTaskloader implents
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int i, @Nullable Bundle bundle) {
