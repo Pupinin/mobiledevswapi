@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private void getMoviesFromLoader(){
+
+
         LoaderManager loaderManager = getSupportLoaderManager();
         Loader<String> githubSearchLoader = loaderManager.getLoader(MOVIE_LOADER_ID);
         if (githubSearchLoader == null) {

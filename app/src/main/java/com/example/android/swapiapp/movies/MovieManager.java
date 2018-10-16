@@ -43,7 +43,7 @@ public class MovieManager {
         try {
             result.setTitle(jsonMovie.getString("title"));
             result.setEpisode_id(Float.parseFloat(jsonMovie.getString("episode_id")));
-            result.setOpening_crawl(jsonMovie.getString("episode_id"));
+            result.setOpening_crawl(jsonMovie.getString("opening_crawl"));
             result.setDirector(jsonMovie.getString("director"));
             result.setProducer(jsonMovie.getString("producer"));
             result.setRelease_date(jsonMovie.getString("release_date"));
