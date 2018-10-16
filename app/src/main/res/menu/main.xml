@@ -4,12 +4,7 @@
 
     <item
         android:id="@+id/menuButton"
-        android:title="Home"
-        app:showAsAction="collapseActionView" />
-    <item android:title="Movies" />
-    <item android:title="Planets" />
-    <item android:title="Vehicle" />
-    <item android:title="People" />
-    <item android:title="Species" />
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
 
 </menu>
