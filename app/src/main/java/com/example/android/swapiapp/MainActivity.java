@@ -1,5 +1,8 @@
 package com.example.android.swapiapp;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -8,13 +11,16 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.android.swapiapp.movies.IRepository;
 import com.example.android.swapiapp.movies.MovieManager;
 import com.example.android.swapiapp.movies.MovieRepository;
 import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
+import com.example.android.swapiapp.preferences.SettingsActivity;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>  {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     private IRepository movieRepository;
     private MovieManager movieManager;
@@ -30,9 +36,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //async call to populate movieManager
         getMoviesFromLoader();
+
+        //sharedPrefrences call
+        setupSharedPrefences();
     }
 
-    private void getMoviesFromLoader(){
+    private void getMoviesFromLoader() {
         LoaderManager loaderManager = getSupportLoaderManager();
         Loader<String> githubSearchLoader = loaderManager.getLoader(MOVIE_LOADER_ID);
         if (githubSearchLoader == null) {
@@ -42,10 +51,38 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
+    //SharedPreferences setup
+    private void setupSharedPrefences() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //getting value
+        boolean side = sharedPreferences.getBoolean(getString(R.string.pref_show_side_key),
+                getResources().getBoolean(R.bool.pref_show_bass_default));
+        TextView sideView = findViewById(R.id.textView_side);
+        String sideText;
+        if (side)
+            sideText = "Light";
+        else
+            sideText = "Dark";
+        sideView.setText(String.format("Side: %s", sideText));
+    }
+
+
+    //Everything MENU related
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menuButton) {
+            Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
+            startActivity(startSettingsActivity);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //Async call to populate movieManager
