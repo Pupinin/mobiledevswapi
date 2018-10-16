@@ -20,16 +20,20 @@ import com.example.android.swapiapp.movies.MovieRepository;
 import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
 import com.example.android.swapiapp.preferences.SettingsActivity;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private IRepository movieRepository;
     private MovieManager movieManager;
     private static final int MOVIE_LOADER_ID = 20;
+    TextView sideView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //findViews
+        sideView = findViewById(R.id.textView_side);
 
         movieRepository = new MovieRepository();
         movieManager = new MovieManager();
@@ -39,6 +43,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //sharedPrefrences call
         setupSharedPrefences();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     private void getMoviesFromLoader() {
@@ -57,13 +68,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //getting value
         boolean side = sharedPreferences.getBoolean(getString(R.string.pref_show_side_key),
                 getResources().getBoolean(R.bool.pref_show_bass_default));
-        TextView sideView = findViewById(R.id.textView_side);
+
         String sideText;
         if (side)
             sideText = "Light";
         else
             sideText = "Dark";
+
         sideView.setText(String.format("Side: %s", sideText));
+
+        //register tot preferencechanged
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
 
@@ -100,5 +115,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
 
+    }
+
+    //SharedPreference implemented method
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        String keySide = getString(R.string.pref_show_side_key);
+        if (key.equals(keySide)) {
+            boolean side = sharedPreferences.getBoolean(key,
+                    getResources().getBoolean(R.bool.pref_show_bass_default));
+            String sideText;
+            if (side)
+                sideText = "Light";
+            else
+                sideText = "Dark";
+
+            sideView.setText(String.format("Side: %s", sideText));
+        }
     }
 }

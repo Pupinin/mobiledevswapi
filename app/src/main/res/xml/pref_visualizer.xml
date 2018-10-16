@@ -7,4 +7,15 @@
         android:summaryOn="@string/pref_show_true"
         android:title="@string/pref_show_side_label" />
     <!--Summary will show after action-->
+
+    <!--template-->
+    <!--<CheckBoxPreference-->
+        <!--android:defaultValue=""-->
+        <!--android:key=""-->
+        <!--android:summaryOff=""-->
+        <!--android:summaryOn=""-->
+        <!--android:title="" />-->
+
+
+
 </PreferenceScreen>
