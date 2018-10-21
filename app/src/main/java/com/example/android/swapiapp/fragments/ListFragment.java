@@ -42,7 +42,7 @@ public class ListFragment extends Fragment {
 
                 DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);
                 if(detailFragment != null && detailFragment.isVisible()) {
-                    //when visible will send bundle
+                    //Visible: in Landscape mode
                     DetailFragment newFragment = new DetailFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("item", item);     //key item
@@ -54,7 +54,7 @@ public class ListFragment extends Fragment {
 
                     transaction.commit();
                 } else {
-                    //Not visible, will start Intent
+                    //Not visible: is not in Landscape mode
                     Intent intent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
                     intent.putExtra("item", item);
                     getActivity().startActivity(intent);

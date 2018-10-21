@@ -27,7 +27,7 @@ public class DetailFragment extends Fragment {
             item = getArguments().getString("item");
         }
 
-        jsonView.setText("works");
+        jsonView.setText(item);
 
         return view;
     }
