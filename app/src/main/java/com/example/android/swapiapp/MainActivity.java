@@ -25,9 +25,9 @@ import com.example.android.swapiapp.movies.MovieRepository;
 import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
 import com.example.android.swapiapp.preferences.SettingsActivity;
 
-public class MainActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<String>,
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>,
         SharedPreferences.OnSharedPreferenceChangeListener {
-//    AppCompatActivity
+//    AppCompatActivity, FragmentActivity
 
     private IRepository movieRepository;
     private MovieManager movieManager;
@@ -52,7 +52,7 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
         movieManager = new MovieManager();
 
         //async call to populate movieManager
-        getMoviesFromLoader();
+      //  getMoviesFromLoader();
 
         //sharedPrefrences call
         setupSharedPrefences();
