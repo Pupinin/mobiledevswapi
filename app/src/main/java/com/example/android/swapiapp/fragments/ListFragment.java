@@ -20,6 +20,7 @@ import com.example.android.swapiapp.R;
 public class ListFragment extends Fragment {
 
     ListView listView;
+    RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -28,9 +29,9 @@ public class ListFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_list_fragment, container, false);
 
         //recyclerview-start
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listRecyclerView);
+         recyclerView = (RecyclerView) view.findViewById(R.id.listRecyclerView);
 
-        ListAdapter listAdapter = new ListAdapter();
+        ListAdapter listAdapter = new ListAdapter(null);
         recyclerView.setAdapter(listAdapter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -42,6 +43,43 @@ public class ListFragment extends Fragment {
     }
 
     //when clicked
+
+    //recycler:
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        recyclerView.setAdapter(new ListAdapter(new ListAdapter.ListItemClickListener() {
+            @Override
+            public void onListItemClick(int clickedItemIndex) {
+                String item = "test";
+                Toast.makeText(getContext(), "Clicked" + clickedItemIndex, Toast.LENGTH_LONG).show();
+
+                DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);
+                if (detailFragment != null && detailFragment.isVisible())  {
+
+                    //Visible: in Landscape mode
+                    DetailFragment newFragment = new DetailFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("item", item);     //key item
+                    newFragment.setArguments(bundle);
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(detailFragment.getId(), newFragment);
+                    transaction.addToBackStack(null);
+
+                    transaction.commit();
+                } else {
+
+                   //Not visible: is not in Landscape mode
+                    Intent intent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
+                    intent.putExtra("item", item);
+                    getActivity().startActivity(intent);
+                }
+            }
+        }));
+    }
 
 
     //even uncomment voor recyclerView demo

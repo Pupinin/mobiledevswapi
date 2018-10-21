@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.android.swapiapp.movies.IRepository;
@@ -24,7 +25,8 @@ import com.example.android.swapiapp.movies.MovieRepository;
 import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
 import com.example.android.swapiapp.preferences.SettingsActivity;
 
-public class MainActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<String>, SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<String>,
+        SharedPreferences.OnSharedPreferenceChangeListener {
 //    AppCompatActivity
 
     private IRepository movieRepository;
