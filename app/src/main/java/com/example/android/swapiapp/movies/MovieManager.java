@@ -8,10 +8,20 @@ import java.util.ArrayList;
 
 public class MovieManager {
     private ArrayList<Movie> movies;
+    private String rawJsonString;
 
 
     public MovieManager() {
         movies = new ArrayList<>();
+        rawJsonString = "";
+    }
+
+    public String getRawJsonString() {
+        return rawJsonString;
+    }
+
+    public void setRawJsonString(String rawJsonString) {
+        this.rawJsonString = rawJsonString;
     }
 
     public ArrayList<Movie> getMovies() {
@@ -19,6 +29,7 @@ public class MovieManager {
     }
 
     public void setMovies(String jsonString){
+        rawJsonString = jsonString;
         JSONObject json = null;
         try {
 

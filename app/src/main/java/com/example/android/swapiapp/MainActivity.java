@@ -20,6 +20,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.android.swapiapp.movies.IRepository;
+import com.example.android.swapiapp.movies.Movie;
 import com.example.android.swapiapp.movies.MovieManager;
 import com.example.android.swapiapp.movies.MovieRepository;
 import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private IRepository movieRepository;
     private MovieManager movieManager;
     private static final int MOVIE_LOADER_ID = 20;
+    private static final String MOVIEMANAGER_RAWJSON_TEXT_KEY = "movieManager";
     TextView sideView;
 
     @Override
@@ -51,8 +53,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         movieRepository = new MovieRepository();
         movieManager = new MovieManager();
 
-        //async call to populate movieManager
-      //  getMoviesFromLoader();
+        if(savedInstanceState != null){
+            if(savedInstanceState.containsKey(MOVIEMANAGER_RAWJSON_TEXT_KEY)) {
+                movieManager.setMovies(savedInstanceState.getString(MOVIEMANAGER_RAWJSON_TEXT_KEY));
+            }
+            else
+                getMoviesFromLoader();
+        }
+        else {
+            getMoviesFromLoader();
+        }
+
 
         //sharedPrefrences call
         setupSharedPrefences();
@@ -74,6 +85,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             loaderManager.restartLoader(MOVIE_LOADER_ID, null, this);
         }
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String rawJson = movieManager.getRawJsonString();
+        if(rawJson == "")
+            return;
+        outState.putString(MOVIEMANAGER_RAWJSON_TEXT_KEY,rawJson);
+    }
+
 
     //SharedPreferences setup
     private void setupSharedPrefences() {
