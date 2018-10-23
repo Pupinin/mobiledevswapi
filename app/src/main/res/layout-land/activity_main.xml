@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:id="@+id/framePlaceHolder">
+    android:id="@+id/framePlaceHolder"
+    android:background="?attr/backgroundCardColor">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,13 +22,15 @@
                 android:id="@+id/textView_side"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Side " />
+                android:text="Side "
+                android:textColor="?attr/primaryTextColor"/>
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Landscape" />
+                android:text="Landscape"
+                android:textColor="?attr/primaryTextColor"/>
         </LinearLayout>
 
         <LinearLayout

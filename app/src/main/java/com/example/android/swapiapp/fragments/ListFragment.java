@@ -80,46 +80,4 @@ public class ListFragment extends Fragment {
             }
         }));
     }
-
-
-    //even uncomment voor recyclerView demo
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//        //backup met listview:
-//        //  listView = (ListView) getView().findViewById(R.id.listView);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String item = (String) listView.getItemAtPosition(position);
-//                Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
-//
-//                DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);
-//                if (detailFragment != null && detailFragment.isVisible()) {
-//
-//                    //Visible: in Landscape mode
-//                    DetailFragment newFragment = new DetailFragment();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("item", item);     //key item
-//                    newFragment.setArguments(bundle);
-//
-//                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                    transaction.replace(detailFragment.getId(), newFragment);
-//                    transaction.addToBackStack(null);
-//
-//                    transaction.commit();
-//                } else {
-//
-//                    //Not visible: is not in Landscape mode
-//                    Intent intent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
-//                    intent.putExtra("item", item);
-//                    getActivity().startActivity(intent);
-//                }
-//
-//            }
-//        });
-//    }
 }

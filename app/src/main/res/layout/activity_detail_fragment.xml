@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundCardColor">
 
     <LinearLayout
         android:orientation="vertical"
@@ -12,14 +13,16 @@
             android:id="@+id/textViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Movie clicked: "/>
+            android:text="Movie clicked: "
+            android:textColor="?attr/primaryTextColor"/>
 
         <TextView
             android:id="@+id/textViewJson"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:text="Hier komt JSON"/>
+            android:text="Hier komt JSON"
+            android:textColor="?attr/primaryTextColor"/>
 
     </LinearLayout>
 
