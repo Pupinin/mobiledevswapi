@@ -31,6 +31,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
+        <!--DetailActivity-->
+        <activity
+            android:name=".fragments.DetailActivity"
+            android:label="DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

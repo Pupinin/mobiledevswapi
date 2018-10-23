@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -12,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.android.swapiapp.movies.IRepository;
@@ -20,7 +25,9 @@ import com.example.android.swapiapp.movies.MovieRepository;
 import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
 import com.example.android.swapiapp.preferences.SettingsActivity;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>, SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>,
+        SharedPreferences.OnSharedPreferenceChangeListener {
+//    AppCompatActivity, FragmentActivity
 
     private IRepository movieRepository;
     private MovieManager movieManager;
@@ -32,6 +39,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ListFragment fragment = new ListFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.framePlaceHolder, fragment);
+        fragmentTransaction.commit();
+
         //findViews
         sideView = findViewById(R.id.textView_side);
 
@@ -39,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         movieManager = new MovieManager();
 
         //async call to populate movieManager
-        getMoviesFromLoader();
+      //  getMoviesFromLoader();
 
         //sharedPrefrences call
         setupSharedPrefences();
@@ -47,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+       super.onDestroy();
         PreferenceManager.getDefaultSharedPreferences(this)
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
