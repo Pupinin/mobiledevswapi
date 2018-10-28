@@ -1,5 +1,4 @@
 package com.example.android.swapiapp;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,20 +15,11 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
-import com.example.android.swapiapp.movies.IRepository;
-import com.example.android.swapiapp.movies.MovieManager;
-import com.example.android.swapiapp.movies.MovieRepository;
-import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
 import com.example.android.swapiapp.preferences.SettingsActivity;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>,
+public class MainActivity extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
-
-    //member variables
-    private IRepository movieRepository;
-    private MovieManager movieManager;
-    private static final int MOVIE_LOADER_ID = 20;
+//    AppCompatActivity, FragmentActivity
     TextView sideView;
 
     @Override
@@ -56,12 +46,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //findViews
         sideView = findViewById(R.id.textView_side);
 
-        //Repositories
-        movieRepository = new MovieRepository();
-        movieManager = new MovieManager();
 
-        //async call to populate movieManager
-      //  getMoviesFromLoader();
 
         //sharedPrefrences call
         setupSharedPrefences();
@@ -74,15 +59,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    private void getMoviesFromLoader() {
-        LoaderManager loaderManager = getSupportLoaderManager();
-        Loader<String> githubSearchLoader = loaderManager.getLoader(MOVIE_LOADER_ID);
-        if (githubSearchLoader == null) {
-            loaderManager.initLoader(MOVIE_LOADER_ID, null, this);
-        } else {
-            loaderManager.restartLoader(MOVIE_LOADER_ID, null, this);
-        }
-    }
+
+
 
     //SharedPreferences setup
     private void setupSharedPrefences() {
@@ -124,22 +102,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return super.onOptionsItemSelected(item);
     }
 
-    //Async call to populate movieManager
-    @NonNull
-    @Override
-    public Loader<String> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return new MoviesApiAsyncTaskLoader(this);
-    }
 
-    @Override
-    public void onLoadFinished(@NonNull Loader<String> loader, String s) {
-        movieManager.setMovies(s);
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<String> loader) {
-
-    }
 
     //SharedPreference implemented method
     @Override

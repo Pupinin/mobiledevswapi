@@ -7,18 +7,25 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MovieManager {
-    private ArrayList<Movie> movies;
+    private String rawJsonString;
 
 
     public MovieManager() {
-        movies = new ArrayList<>();
+        rawJsonString = "";
     }
 
-    public ArrayList<Movie> getMovies() {
-        return movies;
+    public String getRawJsonString() {
+        return rawJsonString;
     }
 
-    public void setMovies(String jsonString){
+    public void setRawJsonString(String rawJsonString) {
+        this.rawJsonString = rawJsonString;
+    }
+
+
+    public ArrayList<Movie> ParseMoviesToArrayListMovies(String jsonString){
+        rawJsonString = jsonString;
+        ArrayList<Movie> movies = new ArrayList<>();
         JSONObject json = null;
         try {
 
@@ -27,13 +34,13 @@ public class MovieManager {
 
             for (int i = 0; i < array.length(); i++) {
                 movies.add(parseMovie(array.getJSONObject(i)));
-                System.out.println("hello");
             }
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return movies;
 
     }
 
@@ -43,7 +50,7 @@ public class MovieManager {
         try {
             result.setTitle(jsonMovie.getString("title"));
             result.setEpisode_id(Float.parseFloat(jsonMovie.getString("episode_id")));
-            result.setOpening_crawl(jsonMovie.getString("episode_id"));
+            result.setOpening_crawl(jsonMovie.getString("opening_crawl"));
             result.setDirector(jsonMovie.getString("director"));
             result.setProducer(jsonMovie.getString("producer"));
             result.setRelease_date(jsonMovie.getString("release_date"));

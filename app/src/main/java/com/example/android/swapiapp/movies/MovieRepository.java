@@ -15,6 +15,15 @@ public class MovieRepository implements IRepository {
         }
     }
 
+    public String getMovieFromApiById(int id){
+        try {
+            return NetworkUtils.getResponseFromHttpUrl(NetworkUtils.getMovieByIdUrl(id));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Override
     public String getAllFromDatabase() {
         return null;
