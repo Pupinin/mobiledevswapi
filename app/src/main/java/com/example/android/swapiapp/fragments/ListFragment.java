@@ -45,7 +45,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
 
         //here needs an instance of
         //Adapter
-        listAdapter = new ListAdapter(this);
+        listAdapter = new ListAdapter(null);
         mRecyclerView.setAdapter(listAdapter);
 
         //LayoutManager
@@ -108,8 +108,6 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
         }));
     }
 
-    @Override
-    public void onListItemClick(int clickedItemIndex) {
 
     //Async call to populate movieManager
     @NonNull
