@@ -11,17 +11,17 @@ import android.widget.TextView;
 
 import com.example.android.swapiapp.R;
 
-//voor recyclerview
 public class ListAdapter extends RecyclerView.Adapter {
 
+    //memberVar
     public final ListItemClickListener mOnClickListener;
 
-
+    //Constructor
     public ListAdapter(ListItemClickListener listener) {
         mOnClickListener = listener;
     }
 
-
+    //interface
     public interface ListItemClickListener {
         void onListItemClick(int clickedItemIndex);
     }
@@ -33,7 +33,7 @@ public class ListAdapter extends RecyclerView.Adapter {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_item, parent, false);
-      //  view.setOnClickListener(mOnClickListener);
+        //  view.setOnClickListener(mOnClickListener);
         return new ListViewHolder(view);
     }
 
@@ -49,7 +49,7 @@ public class ListAdapter extends RecyclerView.Adapter {
     }
 
 
-    //ViewHolder class
+    //ViewHolder class - start
     private class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mItemTextView;
@@ -72,8 +72,9 @@ public class ListAdapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
-            int clickedPosition = getAdapterPosition()+1;
+            int clickedPosition = getAdapterPosition() + 1;
             mOnClickListener.onListItemClick(clickedPosition);
         }
     }
+    //ViewHolder end
 }

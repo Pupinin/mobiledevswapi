@@ -11,16 +11,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.android.swapiapp.MainActivity;
 import com.example.android.swapiapp.R;
 
-public class ListFragment extends Fragment {
+import java.sql.SQLOutput;
 
-    ListView listView;
-    RecyclerView recyclerView;
+public class ListFragment extends Fragment implements ListAdapter.ListItemClickListener {
+
+    RecyclerView mRecyclerView;
+    ListAdapter listAdapter;
 
     @Nullable
     @Override
@@ -29,13 +31,16 @@ public class ListFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_list_fragment, container, false);
 
         //recyclerview-start
-         recyclerView = (RecyclerView) view.findViewById(R.id.listRecyclerView);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.listRecyclerView);
 
-        ListAdapter listAdapter = new ListAdapter(null);
-        recyclerView.setAdapter(listAdapter);
+        //here needs an instance of
+        //Adapter
+        listAdapter = new ListAdapter(this);
+        mRecyclerView.setAdapter(listAdapter);
 
+        //LayoutManager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
         //stop
 
 
@@ -50,14 +55,14 @@ public class ListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        recyclerView.setAdapter(new ListAdapter(new ListAdapter.ListItemClickListener() {
+        mRecyclerView.setAdapter(new ListAdapter(new ListAdapter.ListItemClickListener() {
             @Override
             public void onListItemClick(int clickedItemIndex) {
                 String item = "test";
-                Toast.makeText(getContext(), "Clicked" + clickedItemIndex, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Movie Clicked " + clickedItemIndex, Toast.LENGTH_LONG).show();
 
                 DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);
-                if (detailFragment != null && detailFragment.isVisible())  {
+                if (detailFragment != null && detailFragment.isVisible()) {
 
                     //Visible: in Landscape mode
                     DetailFragment newFragment = new DetailFragment();
@@ -72,12 +77,17 @@ public class ListFragment extends Fragment {
                     transaction.commit();
                 } else {
 
-                   //Not visible: is not in Landscape mode
+                    //Not visible: is not in Landscape mode
                     Intent intent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
                     intent.putExtra("item", item);
                     getActivity().startActivity(intent);
                 }
             }
         }));
+    }
+
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+
     }
 }

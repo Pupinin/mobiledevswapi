@@ -26,6 +26,8 @@
             android:name="com.example.android.swapiapp.fragments.ListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+
     </LinearLayout>
 
 
