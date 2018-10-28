@@ -80,7 +80,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
             public void onListItemClick(int clickedItemIndex) {
 
 
-                Toast.makeText(getContext(), "Clicked" + clickedItemIndex, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Clicked" + (clickedItemIndex+1), Toast.LENGTH_LONG).show();
                 Gson gson = new Gson();
                 String item = gson.toJson(movieManager.ParseMoviesToArrayListMovies(movieManager.getRawJsonString()).get(clickedItemIndex));
                 DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);

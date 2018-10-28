@@ -19,7 +19,6 @@ import com.example.android.swapiapp.preferences.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
-//    AppCompatActivity, FragmentActivity
     TextView sideView;
 
     @Override
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements
         sideView = findViewById(R.id.textView_side);
 
 
-
         //sharedPrefrences call
         setupSharedPrefences();
     }
@@ -60,7 +58,24 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    //Everything MENU related - start
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menuButton) {
+            Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
+            startActivity(startSettingsActivity);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    // stop
 
     //SharedPreferences setup
     private void setupSharedPrefences() {
@@ -79,30 +94,7 @@ public class MainActivity extends AppCompatActivity implements
 
         //register tot preferencechanged
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-
-
     }
-
-
-    //Everything MENU related
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.menuButton) {
-            Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
-            startActivity(startSettingsActivity);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
 
     //SharedPreference implemented method
     @Override

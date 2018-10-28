@@ -72,7 +72,7 @@ public class ListAdapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
-            int clickedPosition = getAdapterPosition() + 1;
+            int clickedPosition = getAdapterPosition();
             mOnClickListener.onListItemClick(clickedPosition);
         }
     }
