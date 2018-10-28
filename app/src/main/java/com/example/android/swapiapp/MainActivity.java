@@ -1,12 +1,17 @@
 package com.example.android.swapiapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -19,9 +24,19 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Initialising Modes Day/Night
+        if (AppCompatDelegate.getDefaultNightMode()
+                == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.ActivityTheme_Primary_Base_Dark);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
+        //Initial & setContent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //RecyclerView stuff
         ListFragment fragment = new ListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -31,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements
         //findViews
         sideView = findViewById(R.id.textView_side);
 
+        movieRepository = new MovieRepository();
+        movieManager = new MovieManager();
 
 
         //sharedPrefrences call
@@ -39,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onDestroy() {
-       super.onDestroy();
+        super.onDestroy();
         PreferenceManager.getDefaultSharedPreferences(this)
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
@@ -64,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements
 
         //register tot preferencechanged
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+
     }
 
 
@@ -95,12 +114,16 @@ public class MainActivity extends AppCompatActivity implements
             boolean side = sharedPreferences.getBoolean(key,
                     getResources().getBoolean(R.bool.pref_show_bass_default));
             String sideText;
-            if (side)
+            if (side) {
                 sideText = "Light";
-            else
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            } else {
                 sideText = "Dark";
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
 
             sideView.setText(String.format("Side: %s", sideText));
         }
     }
+
 }

@@ -1,14 +1,28 @@
 <resources>
 
-    <!-- Base application theme. -->
+
+    <!-- Light  theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="primaryTextColor">#111111</item>
+        <item name="secondaryTextColor">#193a3a</item>
+        <item name="backgroundCardColor">#FFFFFF</item>
+        <item name="dividerColor">#F2F2F3</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
+    <!-- Dark side theme-->
+    <style name="ActivityTheme.Primary.Base.Dark" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="primaryTextColor">#eff0f7 </item>
+        <item name="secondaryTextColor">#c5ccf7</item>
+        <item name="backgroundCardColor">#28292e</item>
+        <item name="dividerColor">#F2F2F3</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+
+
+    <!--Theme without action bar-->
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
