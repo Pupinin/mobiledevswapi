@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.android.swapiapp.R;
 import com.example.android.swapiapp.movies.MovieManager;
 import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
+import com.google.gson.Gson;
 
 public class ListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
 
@@ -71,16 +72,18 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
         recyclerView.setAdapter(new ListAdapter(new ListAdapter.ListItemClickListener() {
             @Override
             public void onListItemClick(int clickedItemIndex) {
-                String item = movieManager.getRawJsonString();
-                Toast.makeText(getContext(), "Clicked" + clickedItemIndex, Toast.LENGTH_LONG).show();
 
+
+                Toast.makeText(getContext(), "Clicked" + clickedItemIndex, Toast.LENGTH_LONG).show();
+                Gson gson = new Gson();
+                String item = gson.toJson(movieManager.ParseMoviesToArrayListMovies(movieManager.getRawJsonString()).get(clickedItemIndex));
                 DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);
                 if (detailFragment != null && detailFragment.isVisible())  {
 
                     //Visible: in Landscape mode
                     DetailFragment newFragment = new DetailFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("movies", item);     //key item
+                    bundle.putString("item", item);     //key item
                     newFragment.setArguments(bundle);
 
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -92,7 +95,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
 
                    //Not visible: is not in Landscape mode
                     Intent intent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
-                    intent.putExtra("movies", item);
+                    intent.putExtra("item", item);
                     getActivity().startActivity(intent);
                 }
             }
