@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,15 +18,21 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.android.swapiapp.R;
+import com.example.android.swapiapp.movies.MovieManager;
+import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
 
     ListView listView;
     RecyclerView recyclerView;
+    private MovieManager movieManager;
+    private static final int MOVIE_LOADER_ID = 20;
+    private static final String MOVIEMANAGER_RAWJSON_TEXT_KEY = "movieManager";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        movieManager = new MovieManager();
         //returnt View
         View view = inflater.inflate(R.layout.activity_list_fragment, container, false);
 
@@ -38,6 +46,16 @@ public class ListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         //stop
 
+        if(savedInstanceState != null){
+            if(savedInstanceState.containsKey(MOVIEMANAGER_RAWJSON_TEXT_KEY)) {
+                movieManager.setRawJsonString(savedInstanceState.getString(MOVIEMANAGER_RAWJSON_TEXT_KEY));
+            }
+            else
+                getMoviesFromLoader();
+        }
+        else {
+            getMoviesFromLoader();
+        }
 
         return view;
     }
@@ -53,7 +71,7 @@ public class ListFragment extends Fragment {
         recyclerView.setAdapter(new ListAdapter(new ListAdapter.ListItemClickListener() {
             @Override
             public void onListItemClick(int clickedItemIndex) {
-                String item = "test";
+                String item = movieManager.getRawJsonString();
                 Toast.makeText(getContext(), "Clicked" + clickedItemIndex, Toast.LENGTH_LONG).show();
 
                 DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);
@@ -62,7 +80,7 @@ public class ListFragment extends Fragment {
                     //Visible: in Landscape mode
                     DetailFragment newFragment = new DetailFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("item", item);     //key item
+                    bundle.putString("movies", item);     //key item
                     newFragment.setArguments(bundle);
 
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -74,7 +92,7 @@ public class ListFragment extends Fragment {
 
                    //Not visible: is not in Landscape mode
                     Intent intent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
-                    intent.putExtra("item", item);
+                    intent.putExtra("movies", item);
                     getActivity().startActivity(intent);
                 }
             }
@@ -82,44 +100,39 @@ public class ListFragment extends Fragment {
     }
 
 
-    //even uncomment voor recyclerView demo
+    //Async call to populate movieManager
+    @NonNull
+    @Override
+    public Loader<String> onCreateLoader(int i, @Nullable Bundle bundle) {
+        return new MoviesApiAsyncTaskLoader(this.getContext());
+    }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//        //backup met listview:
-//        //  listView = (ListView) getView().findViewById(R.id.listView);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String item = (String) listView.getItemAtPosition(position);
-//                Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
-//
-//                DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);
-//                if (detailFragment != null && detailFragment.isVisible()) {
-//
-//                    //Visible: in Landscape mode
-//                    DetailFragment newFragment = new DetailFragment();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("item", item);     //key item
-//                    newFragment.setArguments(bundle);
-//
-//                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                    transaction.replace(detailFragment.getId(), newFragment);
-//                    transaction.addToBackStack(null);
-//
-//                    transaction.commit();
-//                } else {
-//
-//                    //Not visible: is not in Landscape mode
-//                    Intent intent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
-//                    intent.putExtra("item", item);
-//                    getActivity().startActivity(intent);
-//                }
-//
-//            }
-//        });
-//    }
+    @Override
+    public void onLoadFinished(@NonNull Loader<String> loader, String s) {
+        movieManager.setRawJsonString(s);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<String> loader) {
+
+    }
+
+    private void getMoviesFromLoader() {
+        LoaderManager loaderManager = getLoaderManager();
+        Loader<String> githubSearchLoader = loaderManager.getLoader(MOVIE_LOADER_ID);
+        if (githubSearchLoader == null) {
+            loaderManager.initLoader(MOVIE_LOADER_ID, null, this);
+        } else {
+            loaderManager.restartLoader(MOVIE_LOADER_ID, null, this);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String rawJson = movieManager.getRawJsonString();
+        if(rawJson == "")
+            return;
+        outState.putString(MOVIEMANAGER_RAWJSON_TEXT_KEY,rawJson);
+    }
 }

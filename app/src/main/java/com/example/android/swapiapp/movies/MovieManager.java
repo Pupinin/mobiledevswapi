@@ -7,12 +7,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MovieManager {
-    private ArrayList<Movie> movies;
     private String rawJsonString;
 
 
     public MovieManager() {
-        movies = new ArrayList<>();
         rawJsonString = "";
     }
 
@@ -24,12 +22,10 @@ public class MovieManager {
         this.rawJsonString = rawJsonString;
     }
 
-    public ArrayList<Movie> getMovies() {
-        return movies;
-    }
 
-    public void setMovies(String jsonString){
+    public ArrayList<Movie> ParseMoviesToArrayListMovies(String jsonString){
         rawJsonString = jsonString;
+        ArrayList<Movie> movies = new ArrayList<>();
         JSONObject json = null;
         try {
 
@@ -38,13 +34,13 @@ public class MovieManager {
 
             for (int i = 0; i < array.length(); i++) {
                 movies.add(parseMovie(array.getJSONObject(i)));
-                System.out.println("hello");
             }
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return movies;
 
     }
 
