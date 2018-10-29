@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -33,11 +34,21 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         //RecyclerView stuff
-        MovieListFragment fragment = new MovieListFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.framePlaceHolder, fragment);
-        fragmentTransaction.commit();
+//        FragmentManager fm = getSupportFragmentManager();
+//        Fragment fragment = fm.findFragmentById(R.id.framePlaceHolder);
+//        if (fragment == null) {
+//            fragment = new MovieListFragment();
+//
+//            fm.beginTransaction()
+//                    .add(R.id.framePlaceHolder, fragment)
+//                    .commit();
+//        }
+
+//        MovieListFragment fragment = new MovieListFragment();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(R.id.framePlaceHolder, fragment);
+//        fragmentTransaction.commit();
 
         //findViews
         sideView = findViewById(R.id.textView_side);

@@ -8,12 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.swapiapp.R;
@@ -28,6 +31,14 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
     private static final String MOVIEMANAGER_RAWJSON_TEXT_KEY = "movieManager";
 
     RecyclerView mRecyclerView;
+    ListAdapter mListAdapter;
+    private TextView mItemTextView;
+    private ImageView mItemImage;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override
@@ -38,20 +49,19 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
 
         //recyclerview-start
         mRecyclerView = (RecyclerView) view.findViewById(R.id.listRecyclerView);
+        mListAdapter = new ListAdapter();
 
         //LayoutManager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         //stop
 
-        if(savedInstanceState != null){
-            if(savedInstanceState.containsKey(MOVIEMANAGER_RAWJSON_TEXT_KEY)) {
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(MOVIEMANAGER_RAWJSON_TEXT_KEY)) {
                 movieManager.setRawJsonString(savedInstanceState.getString(MOVIEMANAGER_RAWJSON_TEXT_KEY));
-            }
-            else
+            } else
                 getMoviesFromLoader();
-        }
-        else {
+        } else {
             getMoviesFromLoader();
         }
 
@@ -62,41 +72,84 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
 
     //recycler:
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mRecyclerView.setAdapter(new MovieListAdapter(new MovieListAdapter.ListItemClickListener() {
-            @Override
-            public void onListItemClick(int clickedItemIndex) {
+        mRecyclerView.setAdapter(mListAdapter);
+    }
 
+    //VIEWHOLDER-start
+    private class ListViewHolder extends RecyclerView.ViewHolder {
 
-                Toast.makeText(getContext(), "Clicked" + (clickedItemIndex+1), Toast.LENGTH_LONG).show();
-                Gson gson = new Gson();
-                String item = gson.toJson(movieManager.ParseMoviesToArrayListMovies(movieManager.getRawJsonString()).get(clickedItemIndex));
-                DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);
-                if (detailFragment != null && detailFragment.isVisible()) {
+        public ListViewHolder(@NonNull View itemView) {
+            super(itemView);
 
-                    //Visible: in Landscape mode
-                    DetailFragment newFragment = new DetailFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("item", item);     //key item
-                    newFragment.setArguments(bundle);
+            mItemTextView = (TextView) itemView.findViewById(R.id.itemText);
+            mItemImage = (ImageView) itemView.findViewById(R.id.itemImage);
 
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(detailFragment.getId(), newFragment);
-                    transaction.addToBackStack(null);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                    transaction.commit();
-                } else {
+                    Toast.makeText(getActivity(), "Film: " + (getAdapterPosition() + 1), Toast.LENGTH_LONG).show();
+                    Gson gson = new Gson();
+                    String item = gson.toJson(movieManager.ParseMoviesToArrayListMovies(movieManager.getRawJsonString()).get(getAdapterPosition()));
 
-                    //Not visible: is not in Landscape mode
-                    Intent intent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
-                    intent.putExtra("item", item);
-                    getActivity().startActivity(intent);
+                    DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);
+                    if (detailFragment != null && detailFragment.isVisible()) {
+
+                        //Visible: in Landscape mode
+                        DetailFragment newFragment = new DetailFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("item", item);     //key item
+                        newFragment.setArguments(bundle);
+
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(detailFragment.getId(), newFragment);
+                        transaction.addToBackStack(null);
+
+                        transaction.commit();
+                    } else {
+
+                        //Not visible: is not in Landscape mode
+                        Intent intent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
+                        intent.putExtra("item", item);
+                        getActivity().startActivity(intent);
+                    }
                 }
-            }
-        }));
+            });
+        }
+
+
+        public void bindView(int position) {
+            mItemTextView.setText(MovieData.EPISODE_LIST[position]);
+            mItemImage.setImageResource(MovieData.PICTURE_PATH[position]);
+        }
+    }
+    //stop
+
+    //ADAPTER-start
+    private class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
+
+        @NonNull
+        @Override
+        public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            View view = inflater.inflate(R.layout.list_item, parent, false);
+            return new ListViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ListViewHolder listViewHolder, int i) {
+            listViewHolder.bindView(i);
+        }
+
+        @Override
+        public int getItemCount() {
+            return MovieData.EPISODE_LIST.length;
+        }
     }
 
 
@@ -131,8 +184,8 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         String rawJson = movieManager.getRawJsonString();
-        if(rawJson == "")
+        if (rawJson == "")
             return;
-        outState.putString(MOVIEMANAGER_RAWJSON_TEXT_KEY,rawJson);
+        outState.putString(MOVIEMANAGER_RAWJSON_TEXT_KEY, rawJson);
     }
 }
