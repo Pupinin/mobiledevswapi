@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import com.example.android.swapiapp.R;
 
-public class ListAdapter extends RecyclerView.Adapter {
+public class MovieListAdapter extends RecyclerView.Adapter {
 
     //memberVar
     public final ListItemClickListener mOnClickListener;
 
     //Constructor
-    public ListAdapter(ListItemClickListener listener) {
+    public MovieListAdapter(ListItemClickListener listener) {
         mOnClickListener = listener;
     }
 
@@ -31,15 +31,14 @@ public class ListAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         Context context = parent.getContext();
-         LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_item, parent, false);
-        //  view.setOnClickListener(mOnClickListener);
         return new ListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        ((ListViewHolder) viewHolder).bindView(i);
+       // ((ListViewHolder) viewHolder).bindView(i);
     }
 
 
@@ -64,10 +63,10 @@ public class ListAdapter extends RecyclerView.Adapter {
         }
 
 
-//        public void bindView(int position) {
-//            mItemTextView.setText(MovieData.EPISODE_LIST[position]);
-//            mItemImage.setImageResource(MovieData.PICTURE_PATH[position]);
-//        }
+        public void bindView(int position) {
+            mItemTextView.setText(MovieData.EPISODE_LIST[position]);
+            mItemImage.setImageResource(MovieData.PICTURE_PATH[position]);
+        }
 
 
         @Override

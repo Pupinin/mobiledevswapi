@@ -16,22 +16,18 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.android.swapiapp.MainActivity;
 import com.example.android.swapiapp.R;
 import com.example.android.swapiapp.movies.MovieManager;
 import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
 import com.google.gson.Gson;
 
-public class ListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
+public class MovieListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
 
-    ListView listView;
-    RecyclerView recyclerView;
     private MovieManager movieManager;
     private static final int MOVIE_LOADER_ID = 20;
     private static final String MOVIEMANAGER_RAWJSON_TEXT_KEY = "movieManager";
 
     RecyclerView mRecyclerView;
-    ListAdapter listAdapter;
 
     @Nullable
     @Override
@@ -42,11 +38,6 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
 
         //recyclerview-start
         mRecyclerView = (RecyclerView) view.findViewById(R.id.listRecyclerView);
-
-        //here needs an instance of
-        //Adapter
-        listAdapter = new ListAdapter(null);
-        mRecyclerView.setAdapter(listAdapter);
 
         //LayoutManager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -75,7 +66,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mRecyclerView.setAdapter(new ListAdapter(new ListAdapter.ListItemClickListener() {
+        mRecyclerView.setAdapter(new MovieListAdapter(new MovieListAdapter.ListItemClickListener() {
             @Override
             public void onListItemClick(int clickedItemIndex) {
 

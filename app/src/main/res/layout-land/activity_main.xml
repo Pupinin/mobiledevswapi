@@ -40,7 +40,7 @@
 
             <fragment
                 android:id="@+id/list"
-                android:name="com.example.android.swapiapp.fragments.ListFragment"
+                android:name="com.example.android.swapiapp.fragments.MovieListFragment"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_weight="5" />
