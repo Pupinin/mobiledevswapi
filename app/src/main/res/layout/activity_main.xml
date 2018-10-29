@@ -23,7 +23,7 @@
 
         <fragment
             android:id="@+id/list"
-            android:name="com.example.android.swapiapp.fragments.MovieListFragment"
+            class="com.example.android.swapiapp.fragments.MovieListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

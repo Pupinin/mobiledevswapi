@@ -44,7 +44,7 @@ public class MovieManager {
 
     }
 
-    private Movie parseMovie(JSONObject jsonMovie){
+    public Movie parseMovie(JSONObject jsonMovie){
         Movie result = new Movie();
 
         try {

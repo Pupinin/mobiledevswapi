@@ -12,6 +12,14 @@
     <string name="pref_show_false">Dark Side</string>
     <string name="pref_show_true">Light Side</string>
 
+    <!--Movie attributes-->
+    <string name="title">Title</string>
+    <string name="episodeid">EpisodeId</string>
+    <string name="opening">Opening</string>
+    <string name="director">Director</string>
+    <string name="producer">Producer</string>
+    <string name="release_date">Release Date</string>
+
     <!--Static films array-->
     <string-array name="array_films">
         <item>Episode 1</item>

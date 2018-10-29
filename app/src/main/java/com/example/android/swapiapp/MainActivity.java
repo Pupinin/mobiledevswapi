@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         //RecyclerView stuff
 //        FragmentManager fm = getSupportFragmentManager();
 //        Fragment fragment = fm.findFragmentById(R.id.framePlaceHolder);

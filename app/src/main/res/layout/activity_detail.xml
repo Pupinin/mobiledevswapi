@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/detail"
-        android:name="com.example.android.swapiapp.fragments.DetailFragment"
+        class="com.example.android.swapiapp.fragments.DetailFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
