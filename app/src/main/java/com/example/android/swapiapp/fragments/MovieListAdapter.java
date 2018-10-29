@@ -64,10 +64,10 @@ public class ListAdapter extends RecyclerView.Adapter {
         }
 
 
-        public void bindView(int position) {
-            mItemTextView.setText(MovieData.EPISODE_LIST[position]);
-            mItemImage.setImageResource(MovieData.PICTURE_PATH[position]);
-        }
+//        public void bindView(int position) {
+//            mItemTextView.setText(MovieData.EPISODE_LIST[position]);
+//            mItemImage.setImageResource(MovieData.PICTURE_PATH[position]);
+//        }
 
 
         @Override
