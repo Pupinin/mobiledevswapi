@@ -9,13 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="150dip"
-            android:id="@+id/button1"
-            android:layout_height="50dip"
-            android:text="@string/share"
-            android:layout_marginRight="10dip">
-        </Button>
+
 
         <TextView
             android:layout_width="match_parent"
@@ -46,20 +40,7 @@
             android:text=""
             android:textColor="?attr/primaryTextColor"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/opening"
-            android:textStyle="bold"
-            android:textColor="?attr/primaryTextColor"/>
 
-        <TextView
-            android:id="@+id/openingTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:text=""
-            android:textColor="?attr/primaryTextColor"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -105,8 +86,27 @@
             android:ems="10"
             android:text=""
             android:textColor="?attr/primaryTextColor"/>
+        <Button
+            android:layout_width="150dip"
+            android:id="@+id/button1"
+            android:layout_height="50dip"
+            android:text="@string/share"
+            android:layout_marginRight="10dip">
+        </Button>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/opening"
+            android:textStyle="bold"
+            android:textColor="?attr/primaryTextColor"/>
 
-
+        <TextView
+            android:id="@+id/openingTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text=""
+            android:textColor="?attr/primaryTextColor"/>
     </LinearLayout>
 
 
