@@ -1,9 +1,12 @@
 package com.example.android.swapiapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.android.swapiapp.R;
@@ -17,6 +20,7 @@ public class DetailActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        String resultString = "";
         //Initialising Modes Day/Night
         if (AppCompatDelegate.getDefaultNightMode()
                 == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -49,10 +53,27 @@ public class DetailActivity extends FragmentActivity {
             producerView.setText(movie.getProducer());
             releaseDateView.setText(movie.getRelease_date());
 
+            resultString += "Title : " + movie.getTitle() +"\n";
+            resultString += "Episode : " + String.format("%s", movie.getEpisode_id()) +"\n";
+            resultString += "Opening crawl : " + movie.getOpening_crawl() +"\n";
+            resultString += "Director : " + movie.getDirector() +"\n";
+            resultString += "Producer : " + movie.getProducer() +"\n";
+            resultString += "Release : " + movie.getRelease_date() +"\n";
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
+        Button buttonOne = (Button) findViewById(R.id.button1);
+        final String finalResultString = resultString;
+        buttonOne.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                //sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, finalResultString);
+                startActivity(Intent.createChooser(sharingIntent, "Share info"));
+            }
+        });
     }
 }

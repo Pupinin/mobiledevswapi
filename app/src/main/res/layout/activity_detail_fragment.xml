@@ -9,6 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:layout_width="150dip"
+            android:id="@+id/button1"
+            android:layout_height="50dip"
+            android:text="@string/share"
+            android:layout_marginRight="10dip">
+        </Button>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

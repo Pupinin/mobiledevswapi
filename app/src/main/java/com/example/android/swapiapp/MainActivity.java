@@ -3,16 +3,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
-import com.example.android.swapiapp.fragments.MovieListFragment;
 import com.example.android.swapiapp.preferences.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity implements
