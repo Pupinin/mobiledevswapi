@@ -29,7 +29,7 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
     private MovieManager movieManager;
     private static final int MOVIE_LOADER_ID = 20;
     private static final String MOVIEMANAGER_RAWJSON_TEXT_KEY = "movieManager";
-
+    private boolean flag = false;
     RecyclerView mRecyclerView;
     ListAdapter mListAdapter;
     private TextView mItemTextView;
@@ -59,6 +59,8 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(MOVIEMANAGER_RAWJSON_TEXT_KEY)) {
                 movieManager.setRawJsonString(savedInstanceState.getString(MOVIEMANAGER_RAWJSON_TEXT_KEY));
+                if(movieManager.getRawJsonString() != null)
+                    flag = true;
             } else
                 getMoviesFromLoader();
         } else {
@@ -92,6 +94,10 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    //als data nog niet geladen is doe niks
+                    if(!flag)
+                        return;
 
                     Toast.makeText(getActivity(), "Film: " + (getAdapterPosition() + 1), Toast.LENGTH_LONG).show();
                     Gson gson = new Gson();
@@ -163,6 +169,8 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
         movieManager.setRawJsonString(s);
+        if(s != null)
+            flag = true;
     }
 
     @Override
