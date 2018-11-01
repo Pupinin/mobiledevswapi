@@ -36,6 +36,13 @@ public class DetailFragment extends Fragment {
         String item = "";
         if (bundle != null) {
             item = getArguments().getString("item");
+            MovieManager manager = new MovieManager();
+            try {
+                Movie movie = manager.parseMovie(new JSONObject(item));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         try {
