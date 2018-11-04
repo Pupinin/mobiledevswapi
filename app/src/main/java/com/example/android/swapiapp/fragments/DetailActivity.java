@@ -35,7 +35,7 @@ public class DetailActivity extends FragmentActivity {
         //TextView jsonView = findViewById(R.id.textViewJson);
         TextView titleView = findViewById(R.id.textViewTitle);
         TextView episodeIdView = findViewById(R.id.episodeIdTextView);
-        TextView openingView = findViewById(R.id.openingTextView);
+       // TextView openingView = findViewById(R.id.openingTextView);
         TextView directorView = findViewById(R.id.directorTextView);
         TextView producerView = findViewById(R.id.producerTextView);
         TextView releaseDateView = findViewById(R.id.releaseDateTextView);
@@ -48,7 +48,7 @@ public class DetailActivity extends FragmentActivity {
 
             titleView.setText(movie.getTitle());
             episodeIdView.setText(String.format("%s", movie.getEpisode_id()));
-            openingView.setText(movie.getOpening_crawl());
+        //    openingView.setText(movie.getOpening_crawl());
             directorView.setText(movie.getDirector());
             producerView.setText(movie.getProducer());
             releaseDateView.setText(movie.getRelease_date());

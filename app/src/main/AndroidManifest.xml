@@ -38,11 +38,22 @@
         <activity
             android:name=".fragments.DetailActivity"
             android:label="DetailActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".fragments.DetailActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".fragments.DetailActivity" />
+        </activity>
+
+        <!--OpeningActivity-->
+        <activity
+            android:name=".fragments.OpeningActivity"
+            android:label="OpeningActivity"
+            android:parentActivityName=".fragments.DetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".fragments.DetailActivity"/>
 
         </activity>
+
     </application>
 
 </manifest>

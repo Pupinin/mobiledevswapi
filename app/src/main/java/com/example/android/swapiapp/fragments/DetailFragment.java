@@ -21,15 +21,18 @@ import org.json.JSONObject;
 
 public class DetailFragment extends Fragment {
 
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.activity_detail_fragment, container, false);
         Bundle bundle = getArguments();
-     //   TextView jsonView = view.findViewById(R.id.textViewJson);
         TextView titleView = view.findViewById(R.id.textViewTitle);
         TextView episodeIdView = view.findViewById(R.id.episodeIdTextView);
-        TextView openingView = view.findViewById(R.id.openingTextView);
+        //  TextView openingView = view.findViewById(R.id.openingTextView);
         TextView directorView = view.findViewById(R.id.directorTextView);
         TextView producerView = view.findViewById(R.id.producerTextView);
         TextView releaseDateView = view.findViewById(R.id.releaseDateTextView);
@@ -46,24 +49,45 @@ public class DetailFragment extends Fragment {
             }
         }
 
+        final String openingText;
+
         try {
             JSONObject jsonObject = new JSONObject(item);
-            Movie movie = new MovieManager().parseMovie(jsonObject);
+            Movie parsedMovie = new MovieManager().parseMovie(jsonObject);
 
-            titleView.setText(movie.getTitle());
-            episodeIdView.setText(String.format("%s", movie.getEpisode_id()));
-            openingView.setText(movie.getOpening_crawl());
-            directorView.setText(movie.getDirector());
-            producerView.setText(movie.getProducer());
-            releaseDateView.setText(movie.getRelease_date());
+            titleView.setText(parsedMovie.getTitle());
+            episodeIdView.setText(String.format("%s", parsedMovie.getEpisode_id()));
+            //    openingView.setText(movie.getOpening_crawl());
+            directorView.setText(parsedMovie.getDirector());
+            producerView.setText(parsedMovie.getProducer());
+            releaseDateView.setText(parsedMovie.getRelease_date());
 
-
-
+            openingText = parsedMovie.getOpening_crawl();
 
         } catch (JSONException e) {
             e.printStackTrace();
+            return view;
         }
 
+
+        //setting listener for read button
+        Button readButton = (Button) view.findViewById(R.id.readOpeningButton);
+
+        readButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getBaseContext(), OpeningActivity.class);
+                intent.putExtra("opening", openingText);
+                getActivity().startActivity(intent);
+
+//                OpeningFragment openingFragment = new OpeningFragment();
+//                Bundle args = new Bundle();
+//                args.putString("opening", finalOpeningText);
+//                openingFragment.setArguments(args);
+//
+//                getFragmentManager().beginTransaction().add(R.id.opening_container, openingFragment).commit();
+            }
+        });
 
 
         return view;

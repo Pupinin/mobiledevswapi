@@ -20,6 +20,8 @@
     <string name="director">Director</string>
     <string name="producer">Producer</string>
     <string name="release_date">Release Date</string>
+    <string name="read">Read</string>
+    <string name="listen">Listen</string>
 
     <!--Static films array-->
     <string-array name="array_films">

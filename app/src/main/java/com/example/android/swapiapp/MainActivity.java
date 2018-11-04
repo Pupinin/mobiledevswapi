@@ -12,6 +12,7 @@ import com.example.android.swapiapp.preferences.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
+
     TextView sideView;
 
     @Override
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements
 
         //sharedPrefrences call
         setupSharedPrefences();
+
+
     }
 
     @Override
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //getting value
         boolean side = sharedPreferences.getBoolean(getString(R.string.pref_show_side_key),
-                getResources().getBoolean(R.bool.pref_show_bass_default));
+                getResources().getBoolean(R.bool.pref_boolean));
 
         String sideText;
         if (side)
@@ -107,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements
         String keySide = getString(R.string.pref_show_side_key);
         if (key.equals(keySide)) {
             boolean side = sharedPreferences.getBoolean(key,
-                    getResources().getBoolean(R.bool.pref_show_bass_default));
+                    getResources().getBoolean(R.bool.pref_boolean));
             String sideText;
             if (side) {
                 sideText = "Light";
