@@ -92,13 +92,13 @@ public class MainActivity extends AppCompatActivity implements
         boolean side = sharedPreferences.getBoolean(getString(R.string.pref_show_side_key),
                 getResources().getBoolean(R.bool.pref_boolean));
 
-        String sideText;
-        if (side)
-            sideText = "Light";
-        else
-            sideText = "Dark";
-
-        sideView.setText(String.format("Side: %s", sideText));
+//        String sideText;
+//        if (side)
+//            sideText = "Light";
+//        else
+//            sideText = "Dark";
+//
+//        sideView.setText(String.format("Side: %s", sideText));
 
         //register tot preferencechanged
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);

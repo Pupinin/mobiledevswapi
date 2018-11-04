@@ -5,6 +5,7 @@ import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +21,16 @@ public class OpeningActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //Initialising Modes Day/Night
+        if (AppCompatDelegate.getDefaultNightMode()
+                == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.ActivityTheme_Primary_Base_Dark);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
+
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.opening_activity);

@@ -16,26 +16,6 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView_side"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Side "
-                android:textColor="?attr/primaryTextColor"/>
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Landscape"
-                android:textColor="?attr/primaryTextColor"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:baselineAligned="false">
