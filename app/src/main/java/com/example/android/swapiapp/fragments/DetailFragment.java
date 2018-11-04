@@ -50,6 +50,7 @@ public class DetailFragment extends Fragment {
         }
 
         final String openingText;
+        String resultString = "";
 
         try {
             JSONObject jsonObject = new JSONObject(item);
@@ -63,6 +64,13 @@ public class DetailFragment extends Fragment {
             releaseDateView.setText(parsedMovie.getRelease_date());
 
             openingText = parsedMovie.getOpening_crawl();
+
+            resultString += "Title : " + parsedMovie.getTitle() +"\n";
+            resultString += "Episode : " + String.format("%s", parsedMovie.getEpisode_id()) +"\n";
+            resultString += "Opening crawl : " + parsedMovie.getOpening_crawl() +"\n";
+            resultString += "Director : " + parsedMovie.getDirector() +"\n";
+            resultString += "Producer : " + parsedMovie.getProducer() +"\n";
+            resultString += "Release : " + parsedMovie.getRelease_date() +"\n";
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -79,13 +87,18 @@ public class DetailFragment extends Fragment {
                 Intent intent = new Intent(getActivity().getBaseContext(), OpeningActivity.class);
                 intent.putExtra("opening", openingText);
                 getActivity().startActivity(intent);
+            }
+        });
 
-//                OpeningFragment openingFragment = new OpeningFragment();
-//                Bundle args = new Bundle();
-//                args.putString("opening", finalOpeningText);
-//                openingFragment.setArguments(args);
-//
-//                getFragmentManager().beginTransaction().add(R.id.opening_container, openingFragment).commit();
+        //sharebutton
+        Button buttonOne = (Button) view.findViewById(R.id.shareButton);
+        final String finalResultString = resultString;
+        buttonOne.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, finalResultString);
+                startActivity(Intent.createChooser(sharingIntent, "Share info"));
             }
         });
 

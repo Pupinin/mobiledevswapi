@@ -20,16 +20,14 @@
             android:orientation="horizontal"
             android:baselineAligned="false">
 
-            <fragment
+            <FrameLayout
                 android:id="@+id/list"
-                class="com.example.android.swapiapp.fragments.MovieListFragment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5" />
 
-            <fragment
+            <FrameLayout
                 android:id="@+id/detail"
-                class="com.example.android.swapiapp.fragments.DetailFragment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3" />

@@ -22,9 +22,8 @@
             android:text=""
             android:textColor="?attr/primaryTextColor"/>
 
-        <fragment
+        <FrameLayout
             android:id="@+id/list"
-            class="com.example.android.swapiapp.fragments.MovieListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

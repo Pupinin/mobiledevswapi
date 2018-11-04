@@ -88,7 +88,7 @@
             android:textColor="?attr/primaryTextColor"/>
         <Button
             android:layout_width="150dip"
-            android:id="@+id/button1"
+            android:id="@+id/shareButton"
             android:layout_height="50dip"
             android:text="@string/share"
             android:layout_marginRight="10dip">

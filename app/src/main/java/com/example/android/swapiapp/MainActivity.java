@@ -1,13 +1,19 @@
 package com.example.android.swapiapp;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.example.android.swapiapp.fragments.DetailFragment;
+import com.example.android.swapiapp.fragments.MovieListFragment;
 import com.example.android.swapiapp.preferences.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity implements
@@ -30,25 +36,19 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
 
+        MovieListFragment movieListFragment = new MovieListFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.list, movieListFragment);
+        fragmentTransaction.commit();
 
-        //RecyclerView stuff
-//        FragmentManager fm = getSupportFragmentManager();
-//        Fragment fragment = fm.findFragmentById(R.id.framePlaceHolder);
-//        if (fragment == null) {
-//            fragment = new MovieListFragment();
-//
-//            fm.beginTransaction()
-//                    .add(R.id.framePlaceHolder, fragment)
-//                    .commit();
-//        }
 
-//        MovieListFragment fragment = new MovieListFragment();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.framePlaceHolder, fragment);
-//        fragmentTransaction.commit();
+        DetailFragment detailFragment = new DetailFragment();
+        if (findViewById(R.id.detail) != null) {
+            fragmentManager.beginTransaction().replace(R.id.detail, detailFragment).commit();
+        }
 
-        //findViews
+
         sideView = findViewById(R.id.textView_side);
 
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
 
-            sideView.setText(String.format("Side: %s", sideText));
+//            sideView.setText(String.format("Side: %s", sideText));
         }
     }
 

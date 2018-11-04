@@ -29,10 +29,7 @@ public class OpeningActivity extends FragmentActivity {
             setTheme(R.style.AppTheme);
         }
 
-
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.opening_activity);
 
         openingView = findViewById(R.id.openingTextView);
