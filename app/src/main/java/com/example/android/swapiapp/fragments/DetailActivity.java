@@ -37,6 +37,7 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("item", getIntent().getStringExtra("item"));
 
+        //inflating fragment
         DetailFragment detailFragment = new DetailFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         detailFragment.setArguments(bundle);
@@ -44,6 +45,5 @@ public class DetailActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.detail, detailFragment)
                 .commit();
-
     }
 }

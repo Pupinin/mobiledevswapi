@@ -19,7 +19,6 @@ import com.example.android.swapiapp.preferences.SettingsActivity;
 public class MainActivity extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
-    TextView sideView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +50,8 @@ public class MainActivity extends AppCompatActivity implements
         }
 
 
-//        sideView = findViewById(R.id.textView_side);
-
-
         //sharedPrefrences call
         setupSharedPrefences();
-
-
     }
 
     @Override
@@ -90,18 +84,6 @@ public class MainActivity extends AppCompatActivity implements
     //SharedPreferences setup
     private void setupSharedPrefences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //getting value
-        boolean side = sharedPreferences.getBoolean(getString(R.string.pref_show_side_key),
-                getResources().getBoolean(R.bool.pref_boolean));
-
-//        String sideText;
-//        if (side)
-//            sideText = "Light";
-//        else
-//            sideText = "Dark";
-//
-//        sideView.setText(String.format("Side: %s", sideText));
-
         //register tot preferencechanged
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
@@ -113,16 +95,11 @@ public class MainActivity extends AppCompatActivity implements
         if (key.equals(keySide)) {
             boolean side = sharedPreferences.getBoolean(key,
                     getResources().getBoolean(R.bool.pref_boolean));
-//            String sideText;
             if (side) {
-//                sideText = "Light";
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             } else {
-//                sideText = "Dark";
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
-
-//            sideView.setText(String.format("Side: %s", sideText));
         }
     }
 

@@ -32,7 +32,6 @@ public class DetailFragment extends Fragment {
         Bundle bundle = getArguments();
         TextView titleView = view.findViewById(R.id.textViewTitle);
         TextView episodeIdView = view.findViewById(R.id.episodeIdTextView);
-        //  TextView openingView = view.findViewById(R.id.openingTextView);
         TextView directorView = view.findViewById(R.id.directorTextView);
         TextView producerView = view.findViewById(R.id.producerTextView);
         TextView releaseDateView = view.findViewById(R.id.releaseDateTextView);
@@ -58,7 +57,6 @@ public class DetailFragment extends Fragment {
 
             titleView.setText(parsedMovie.getTitle());
             episodeIdView.setText(String.format("%s", parsedMovie.getEpisode_id()));
-            //    openingView.setText(movie.getOpening_crawl());
             directorView.setText(parsedMovie.getDirector());
             producerView.setText(parsedMovie.getProducer());
             releaseDateView.setText(parsedMovie.getRelease_date());
