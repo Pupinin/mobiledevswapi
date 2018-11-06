@@ -9,6 +9,7 @@
         <item name="backgroundCardColor">#FFFFFF</item>
         <item name="dividerColor">#F2F2F3</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="colorAccent">@color/blue</item>
     </style>
 
     <!-- Dark side theme-->
@@ -18,6 +19,7 @@
         <item name="backgroundCardColor">#28292e</item>
         <item name="dividerColor">#F2F2F3</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="colorAccent">@color/red</item>
     </style>
 
 
@@ -31,5 +33,4 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 </resources>
