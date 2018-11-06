@@ -20,9 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.swapiapp.R;
+import com.example.android.swapiapp.movies.Movie;
 import com.example.android.swapiapp.movies.MovieManager;
 import com.example.android.swapiapp.movies.MoviesApiAsyncTaskLoader;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 public class MovieListFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
 
@@ -93,7 +96,16 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
 
                     Toast.makeText(getActivity(), "Film: " + (getAdapterPosition() + 1), Toast.LENGTH_LONG).show();
                     Gson gson = new Gson();
-                    String item = gson.toJson(movieManager.ParseMoviesToArrayListMovies(movieManager.getRawJsonString()).get(getAdapterPosition()));
+                    String item = "";
+                    int numberToSearch = getAdapterPosition() + 1;
+
+                    for (Movie movie: movieManager.ParseMoviesToArrayListMovies(movieManager.getRawJsonString())) {
+                        if(movie.getEpisode_id() == numberToSearch)
+                        {
+                           item = gson.toJson(movie);
+                        }
+                    }
+
 
                     DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.detail);
                     if (detailFragment != null && detailFragment.isVisible()) {
@@ -164,6 +176,7 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
         if(s != null)
             flag = true;
     }
+
 
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
