@@ -60,15 +60,6 @@ public class OpeningActivity extends FragmentActivity {
             }
         });
 
-
-
-//        OpeningFragment openingFragment = new OpeningFragment();
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//
-//        fragmentManager.beginTransaction()
-//                .add(R.id.opening_container, openingFragment)
-//                .commit();
     }
 
     public void onPause(){

@@ -66,10 +66,6 @@ public class MovieListFragment extends Fragment implements LoaderManager.LoaderC
         return view;
     }
 
-    //when clicked
-
-    //recycler:
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

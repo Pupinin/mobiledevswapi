@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
 
+        //Inflates MovieFragment
         MovieListFragment movieListFragment = new MovieListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -43,13 +44,14 @@ public class MainActivity extends AppCompatActivity implements
         fragmentTransaction.commit();
 
 
+        //when in landscape checks if detail fragment is present
         DetailFragment detailFragment = new DetailFragment();
         if (findViewById(R.id.detail) != null) {
             fragmentManager.beginTransaction().replace(R.id.detail, detailFragment).commit();
         }
 
 
-        sideView = findViewById(R.id.textView_side);
+//        sideView = findViewById(R.id.textView_side);
 
 
         //sharedPrefrences call
@@ -111,12 +113,12 @@ public class MainActivity extends AppCompatActivity implements
         if (key.equals(keySide)) {
             boolean side = sharedPreferences.getBoolean(key,
                     getResources().getBoolean(R.bool.pref_boolean));
-            String sideText;
+//            String sideText;
             if (side) {
-                sideText = "Light";
+//                sideText = "Light";
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             } else {
-                sideText = "Dark";
+//                sideText = "Dark";
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
 
