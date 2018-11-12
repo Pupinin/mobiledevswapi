@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">SwapiApp</string>
+    <!--<string name="title_activity_settings">SettingsActivity</string>-->
+    <string name="action_settings">Settings</string>
+
+
+    <!--SharedSettings Strings-->
+    <!--Checkbox Show Side-->
+    <string name="pref_show_side_key" translatable="false">show_side</string>
+    <string name="pref_show_side_label"> Show Side</string>
+    <!--Summary checkbox-->
+    <string name="pref_show_false">Dark Side</string>
+    <string name="pref_show_true">Light Side</string>
+
+    <!--Movie attributes-->
+    <string name="title">Title</string>
+    <string name="share">Share</string>
+    <string name="episodeid">EpisodeId</string>
+    <string name="opening">Opening</string>
+    <string name="director">Director</string>
+    <string name="producer">Producer</string>
+    <string name="release_date">Release Date</string>
+    <string name="read">Read</string>
+    <string name="listen">Listen</string>
+
+    <!--Static films array-->
+    <string-array name="array_films">
+        <item>Episode 1</item>
+        <item>Episode 2</item>
+        <item>Episode 3</item>
+        <item>Episode 4</item>
+        <item>Episode 5</item>
+        <item>Episode 6</item>
+        <item>Episode 7</item>
+    </string-array>
+
 </resources>
